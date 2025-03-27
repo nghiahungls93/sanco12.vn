@@ -4,28 +4,95 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SC12 Media Live</title>
-    <link rel="stylesheet" href="style.css">
-    <script defer src="script.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Hiệu ứng nền gradient động */
+        body {
+            background: linear-gradient(-45deg, #ff416c, #ff4b2b, #1e3c72, #2a5298);
+            background-size: 400% 400%;
+            animation: gradientBG 8s ease infinite;
+            color: #fff;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            padding: 20px;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .container {
+            max-width: 400px;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+        }
+
+        h1 {
+            font-size: 26px;
+            margin-bottom: 20px;
+            color: #ffcc00;
+        }
+
+        .social-links, .contact-links {
+            margin: 20px 0;
+        }
+
+        .social-links a, .contact-links a {
+            display: inline-block;
+            margin: 10px;
+            font-size: 24px;
+            color: #ffcc00;
+            text-decoration: none;
+            transition: transform 0.3s ease, color 0.3s ease;
+        }
+
+        .social-links a:hover, .contact-links a:hover {
+            color: #fff;
+            transform: scale(1.3) rotate(10deg);
+        }
+
+        .footer {
+            margin-top: 20px;
+            font-size: 14px;
+            opacity: 0.7;
+        }
+    </style>
 </head>
 <body>
-    <div class="background-animation"></div>
+
     <div class="container">
         <h1>SC12 Media Live</h1>
-        <p>Kết nối mạng xã hội & truyền thông</p>
 
-        <!-- Biểu tượng mạng xã hội tối giản -->
-        <div class="social-icons">
-            <a href="https://facebook.com/sanco12livestream" target="_blank" class="icon">📘</a>
-            <a href="https://youtube.com/@sanco12" target="_blank" class="icon">📺</a>
-            <a href="https://tiktok.com" target="_blank" class="icon">🎵</a>
+        <div class="social-links">
+            <a href="https://facebook.com/sanco12livestream" target="_blank"><i class="fab fa-facebook"></i></a>
+            <a href="https://youtube.com/@sanco12" target="_blank"><i class="fab fa-youtube"></i></a>
+            <a href="https://tiktok.com/12.medialive" target="_blank"><i class="fab fa-tiktok"></i></a>
         </div>
 
-        <!-- Liên hệ -->
-        <div class="contact">
-            <a href="tel:+84123456789" class="contact-btn">📞</a>
-            <a href="mailto:info@sanco12.vn" class="contact-btn">✉️</a>
-            <a href="https://zalo.me/123456789" class="contact-btn">💬</a>
+        <div class="contact-links">
+            <a href="tel:+84389306186"><i class="fas fa-phone"></i></a>
+            <a href="https://m.me/dang.hung.ars" target="_blank"><i class="fab fa-facebook-messenger"></i></a>
+            <a href="https://zalo.me/yourzaloid" target="_blank"><i class="fas fa-comment-dots"></i></a>
+            <a href="mailto:contact@sc12media.com"><i class="fas fa-envelope"></i></a>
         </div>
+
+        <p class="footer">© 2025 SC12 Media Live. All rights reserved.</p>
     </div>
+
 </body>
 </html>
