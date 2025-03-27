@@ -37,41 +37,19 @@ body {
     border-radius: 10px;
 }
 
-/* Các icon mạng xã hội */
-.social-icons {
+/* Các icon tối giản */
+.social-icons, .contact {
     margin: 20px 0;
 }
 
-.icon {
-    display: inline-block;
-    padding: 10px 20px;
+.icon, .contact-btn {
+    font-size: 2rem;
     margin: 10px;
-    color: white;
     text-decoration: none;
-    border-radius: 5px;
+    color: white;
     transition: transform 0.3s;
 }
 
-.facebook { background: #1877f2; }
-.youtube { background: #ff0000; }
-.tiktok { background: #000; border: 1px solid white; }
-
-.icon:hover {
-    transform: scale(1.1);
-}
-
-/* Nút liên hệ */
-.contact .contact-btn {
-    display: inline-block;
-    margin: 10px;
-    padding: 10px 15px;
-    background: rgba(255, 255, 255, 0.2);
-    color: white;
-    text-decoration: none;
-    border-radius: 5px;
-    transition: background 0.3s;
-}
-
-.contact .contact-btn:hover {
-    background: rgba(255, 255, 255, 0.5);
+.icon:hover, .contact-btn:hover {
+    transform: scale(1.2);
 }
