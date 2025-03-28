@@ -1,9 +1,10 @@
+//thông số cần thay thế
 const YOUTUBE_API_KEY = "AIzaSyAq0bUwHaTGSMslwmpsRBnf94r3mfTuGtY"; // Thay bằng API Key YouTube
 const YOUTUBE_CHANNEL_ID = "UCv77Ms-JsS-m3Zi5jGW5nEQ"; // Thay bằng ID kênh YouTube
-const FACEBOOK_PAGE_ID = "YOUR_FACEBOOK_PAGE_ID"; // Thay bằng ID fanpage Facebook
-const FACEBOOK_ACCESS_TOKEN = "YOUR_FACEBOOK_ACCESS_TOKEN"; // Thay bằng token Facebook API
+const FACEBOOK_PAGE_ID = "2229706643811633"; // Thay bằng ID fanpage Facebook
+const FACEBOOK_ACCESS_TOKEN = "EAATT7nNkHcEBOwKHcoZBKaxpfhYmcuhHkQ5MuafC01hYZAsMweZB5kXmcBjpgiJyZBZBUnleZCpN8SZAnFZATw3V2uBeWkJllKAZAiDuogxG2ZAUjVh06DbtL3dkbysy5ZBe5MUYNgqQcbPyGE40Ffouuxuxr4CSrBROlkhwPXCsyfsXB3hb9M5jgkfKh3ScpIUu6BYZBTyNy5v7"; // Thay bằng token Facebook API
 
-const youtubeAPI = `https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=${UCv77Ms-JsS-m3Zi5jGW5nEQ}&type=video&eventType=live&key=${AIzaSyAq0bUwHaTGSMslwmpsRBnf94r3mfTuGtY}`;
+const youtubeAPI = `https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=${YOUTUBE_CHANNEL_ID}&type=video&eventType=live&key=${YOUTUBE_API_KEY}`;
 const facebookAPI = `https://graph.facebook.com/v12.0/${FACEBOOK_PAGE_ID}/live_videos?access_token=${FACEBOOK_ACCESS_TOKEN}`;
 
 async function checkYouTubeLive() {
@@ -46,3 +47,7 @@ async function checkFacebookLive() {
 
 // Chạy kiểm tra livestream khi tải trang
 checkYouTubeLive();
+
+document.getElementById("youtube-live").innerHTML = `
+    <iframe src="https://www.youtube.com/embed/live_stream?channel=${YOUTUBE_CHANNEL_ID}" frameborder="0" allowfullscreen></iframe>
+`;
