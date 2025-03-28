@@ -12,11 +12,30 @@ async function fetchSchedule() {
         let tableBody = document.querySelector("#schedule-table tbody");
         tableBody.innerHTML = ""; // Xóa dữ liệu cũ (nếu có)
 
-        function formatDate(serial) {
-            if (!serial) return "N/A";
-            let date = new Date(Math.round((serial - 25569) * 86400 * 1000));
-            return date.toLocaleDateString("vi-VN"); // Hiển thị ngày: dd/mm/yyyy
-        }
+       function formatDate(value) {
+    if (!value) return "N/A";
+
+    // Nếu Google Sheets trả về số seri
+    if (typeof value === "number") {
+        let date = new Date((value - 25569) * 86400 * 1000);
+        return date.toLocaleDateString("vi-VN");
+    }
+
+    // Nếu Google Sheets trả về chuỗi ngày dạng "dd/mm/yyyy"
+    if (typeof value === "string" && value.match(/^\d{2}\/\d{2}\/\d{4}$/)) {
+        let parts = value.split("/");
+        let date = new Date(parts[2], parts[1] - 1, parts[0]); // yyyy, mm (0-11), dd
+        return isNaN(date) ? "N/A" : date.toLocaleDateString("vi-VN");
+    }
+
+    // Nếu Google Sheets trả về chuỗi ngày dạng "yyyy-mm-dd"
+    if (typeof value === "string" && value.match(/^\d{4}-\d{2}-\d{2}$/)) {
+        return new Date(value).toLocaleDateString("vi-VN");
+    }
+
+    return "N/A";
+}
+
 
         rows.forEach(row => {
             let date = formatDate(row.c[0]?.v);
