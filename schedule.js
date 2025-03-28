@@ -1,57 +1,37 @@
-const SHEET_ID = "1YgUlwXkg3eyric0FPIPbLskKeJvZ8fW81U8iPmxlHPc";  // Thay bằng ID Google Sheet của bạn
-const SHEET_NAME = "lichphatsong";  // Đặt tên sheet chính xác
-const GOOGLE_SHEET_URL = "https://docs.google.com/spreadsheets/d/1YgUlwXkg3eyric0FPIPbLskKeJvZ8fW81U8iPmxlHPc/gviz/tq?tqx=out:json&sheet=lichphatsong"; 
+const CALENDAR_ID = "ec2a24c9dfd2017525d6749ffefb9151c146fadb7ab10cdc7c815915cdbc2785@group.calendar.google.com"; // ID lịch của bạn
+const API_KEY = "AIzaSyAIX3ZUgdOxo5lxahs7OKPIZHtS9Ykkb58"; // API Key của bạn
 
-// Hàm tải dữ liệu từ Google Sheets
 async function loadSchedule() {
+    let url = `https://www.googleapis.com/calendar/v3/calendars/${CALENDAR_ID}/events?key=${API_KEY}&orderBy=startTime&singleEvents=true`;
+
     try {
-        let response = await fetch(GOOGLE_SHEET_URL);
-        let text = await response.text();
-        let json = JSON.parse(text.substring(47, text.length - 2)); // Xử lý JSON từ Google Sheets
-
-        console.log("Dữ liệu gốc từ API:", json); // Kiểm tra dữ liệu nhận được
-
-        let rows = json.table.rows;
+        let response = await fetch(url);
+        let data = await response.json();
+        
         let scheduleList = document.getElementById("schedule-list");
-        scheduleList.innerHTML = ""; // Xóa dữ liệu cũ
+        scheduleList.innerHTML = ""; // Xóa danh sách cũ
 
-        rows.forEach(row => {
-            let cells = row.c; // Lấy các cột
-            let date = formatDate(cells[0]); // Cột A - Ngày
-            let title = cells[1]?.v || "Không có tiêu đề"; // Cột B - Tiêu đề
-            let link = cells[2]?.v || "#"; // Cột C - Link phát sóng
+        data.items.forEach(event => {
+            let date = new Date(event.start.dateTime || event.start.date);
+            let title = event.summary;
+            let link = event.description || "#"; // Dùng mô tả làm link nếu có
 
             let listItem = document.createElement("li");
-            listItem.innerHTML = `<strong>${date}:</strong> <a href="${link}" target="_blank">${title}</a>`;
+            listItem.innerHTML = `<strong>${formatDate(date)}:</strong> 
+                <a href="${link}" target="_blank">${title}</a>`;
             scheduleList.appendChild(listItem);
         });
 
     } catch (error) {
-        console.error("Lỗi khi tải dữ liệu:", error);
+        console.error("Lỗi tải lịch:", error);
         document.getElementById("schedule-list").innerHTML = "<li>Lỗi tải lịch phát sóng!</li>";
     }
 }
 
-// Hàm định dạng ngày từ Google Sheets
-function formatDate(cell) {
-    if (!cell) return "N/A"; // Không có dữ liệu
-
-    // Nếu API có định dạng hiển thị ("f"), lấy luôn giá trị đó
-    if (cell.f) return cell.f;
-
-    // Nếu API trả về dạng "Date(YYYY,M,D)"
-    let match = cell.v?.match(/Date\((\d+),(\d+),(\d+)\)/);
-    if (match) {
-        let year = parseInt(match[1]);
-        let month = parseInt(match[2]); // Tháng từ 0-11
-        let day = parseInt(match[3]);
-        let date = new Date(year, month, day);
-        return date.toLocaleDateString("vi-VN");
-    }
-
-    return "N/A"; // Trả về "N/A" nếu không xác định được ngày
+// Hàm định dạng ngày tháng
+function formatDate(date) {
+    return date.toLocaleDateString("vi-VN", { weekday: "long", day: "2-digit", month: "2-digit", year: "numeric" });
 }
 
 // Gọi hàm khi tải trang
 document.addEventListener("DOMContentLoaded", loadSchedule);
-
