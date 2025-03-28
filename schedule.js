@@ -13,7 +13,14 @@ async function fetchSchedule() {
         tableBody.innerHTML = ""; // Xóa dữ liệu cũ (nếu có)
 
         rows.forEach(row => {
-            let date = row.c[0]?.v || "N/A";
+            function formatDate(serial) {
+    if (!serial) return "N/A";
+    let date = new Date(Math.round((serial - 25569) * 86400 * 1000)); // Chuyển đổi từ số seri của Google Sheets sang ngày
+    return date.toLocaleDateString("vi-VN"); // Định dạng ngày tiếng Việt: dd/mm/yyyy
+}
+
+let date = formatDate(row.c[0]?.v);
+
             let time = row.c[1]?.v || "N/A";
             let content = row.c[2]?.v || "N/A";
 
