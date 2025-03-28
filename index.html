@@ -3,48 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SC12 Media Live</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <title>SC12 Media Live - Kết nối cảm xúc, nâng tầm sự kiện</title>
+    <link rel="stylesheet" href="styles.css">
+    <script defer src="script.js"></script>
+    <script defer src="schedule.js"></script>
 </head>
 <body>
 
-    <div class="container">
-        <h1>SC12 Media Live</h1>
+    <!-- Banner -->
+    <header class="banner">
+        <img src="assets/banner.jpg" alt="SC12 Media Live">
+    </header>
 
-        <!-- Mạng xã hội -->
-        <div class="social-links">
-            <a href="https://facebook.com/sanco12livestream" target="_blank"><i class="fab fa-facebook"></i></a>
-            <a href="https://youtube.com/@sanco12" target="_blank"><i class="fab fa-youtube"></i></a>
-            <a href="https://tiktok.com/@12.medialive" target="_blank"><i class="fab fa-tiktok"></i></a>
-        </div>
+    <!-- Liên kết mạng xã hội -->
+    <section class="social-links">
+        <a href="https://facebook.com/sanco12livestream" target="_blank"><i class="fab fa-facebook"></i></a>
+        <a href="https://youtube.com/@sanco12" target="_blank"><i class="fab fa-youtube"></i></a>
+        <a href="https://tiktok.com/@12.medialive" target="_blank"><i class="fab fa-tiktok"></i></a>
+    </section>
 
-        <!-- Liên hệ -->
-        <div class="contact-links">
-            <a href="tel:+84389306186"><i class="fas fa-phone"></i></a>
-            <a href="https://m.me/dang.hung.ars" target="_blank"><i class="fab fa-facebook-messenger"></i></a>
-            <a href="https://zalo.me/YOUR_ZALO_ID" target="_blank"><i class="fas fa-comment-dots"></i></a>
-            <a href="mailto:contact@sc12media.com"><i class="fas fa-envelope"></i></a>
-        </div>
+    <!-- Lịch phát sóng -->
+    <section class="schedule">
+        <h2>📅 Lịch Phát Sóng</h2>
+        <ul id="schedule-list">Đang tải...</ul>
+    </section>
 
-         <!-- 🔗 Link đến trang lịch phát sóng -->
-    <h2>Lịch phát sóng</h2>
-<ul id="schedule-list"></ul>
-<script src="schedule.js"></script>
-
-        
-        <!-- Livestream -->
-        <div class="live-section">
+    <!-- Livestream -->
+    <section class="live-section">
             <h2>📺 Livestream Trực Tiếp</h2>
             <div class="video-container" id="live-stream" style="display: none;">
                 <iframe id="stream-frame" width="560" height="315" frameborder="0" allowfullscreen></iframe>
             </div>
-            <p class="message" id="status-message">🔄 Đang kiểm tra livestream...</p>
-        </div>
+            <p class="message" id="status-message">🔄 Hiện đang không có luồng live nào</p>
+        </section>
 
-        <p class="footer">© 2023 SC12 Media Live. All rights reserved.</p>
-    </div>
+    <!-- Thông tin liên hệ -->
+    <section class="contact">
+        <h2>📞 Liên Hệ</h2>
+        <a href="tel:+84389306186"><i class="fas fa-phone"></i> Gọi ngay</a>
+        <a href="https://m.me/dang.hung.ars" target="_blank"><i class="fab fa-facebook-messenger"></i> Messenger</a>
+        <a href="https://zalo.me/yourzaloid" target="_blank"><i class="fas fa-comment-dots"></i> Zalo</a>
+        <a href="mailto:nghiahungls.ppa@gmail.com"><i class="fas fa-envelope"></i> Email</a>
+    </section>
 
-    <script src="script.js"></script>
+    <footer>
+        <p>© 2023 SC12 Media Live. All rights reserved.</p>
+    </footer>
+
 </body>
 </html>
