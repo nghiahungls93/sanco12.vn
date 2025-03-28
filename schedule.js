@@ -17,8 +17,8 @@ async function loadSchedule() {
             let link = event.description || "#"; // Dùng mô tả làm link nếu có
 
             let listItem = document.createElement("li");
-            listItem.innerHTML = `<strong>${formatDate(date)}:</strong> 
-                <a href="${link}" target="_blank">${title}</a>`;
+            listItem.innerHTML = `<strong>${formatDate(date)}:</strong> ${title}`;
+
             scheduleList.appendChild(listItem);
         });
 
