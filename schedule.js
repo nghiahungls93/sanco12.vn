@@ -1,5 +1,5 @@
-const SHEET_ID = "1aBcD_123xyz45678AbcD";  // Thay bằng ID Google Sheet của bạn
-const SHEET_NAME = "Sheet1";  // Đặt tên sheet chính xác
+const SHEET_ID = "1YgUlwXkg3eyric0FPIPbLskKeJvZ8fW81U8iPmxlHPc";  // Thay bằng ID Google Sheet của bạn
+const SHEET_NAME = "lichphatsong";  // Đặt tên sheet chính xác
 const API_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=${SHEET_NAME}`;
 
 async function fetchSchedule() {
