@@ -1,56 +1,57 @@
 const SHEET_ID = "1YgUlwXkg3eyric0FPIPbLskKeJvZ8fW81U8iPmxlHPc";  // Thay bằng ID Google Sheet của bạn
 const SHEET_NAME = "lichphatsong";  // Đặt tên sheet chính xác
-const API_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=${SHEET_NAME}`;
+const GOOGLE_SHEET_URL = "https://docs.google.com/spreadsheets/d/1YgUlwXkg3eyric0FPIPbLskKeJvZ8fW81U8iPmxlHPc/gviz/tq?tqx=out:json&sheet=lichphatsong"; 
 
-async function fetchSchedule() {
+// Hàm tải dữ liệu từ Google Sheets
+async function loadSchedule() {
     try {
-        let response = await fetch(API_URL);
+        let response = await fetch(GOOGLE_SHEET_URL);
         let text = await response.text();
-        let json = JSON.parse(text.substring(47, text.length - 2)); // Google trả về JSON có phần thừa nên cần cắt
+        let json = JSON.parse(text.substring(47, text.length - 2)); // Xử lý JSON từ Google Sheets
+
+        console.log("Dữ liệu gốc từ API:", json); // Kiểm tra dữ liệu nhận được
 
         let rows = json.table.rows;
-        let tableBody = document.querySelector("#schedule-table tbody");
-        tableBody.innerHTML = ""; // Xóa dữ liệu cũ (nếu có)
+        let scheduleList = document.getElementById("schedule-list");
+        scheduleList.innerHTML = ""; // Xóa dữ liệu cũ
 
-       function formatDate(value) {
-    if (!value) return "N/A";
+        rows.forEach(row => {
+            let cells = row.c; // Lấy các cột
+            let date = formatDate(cells[0]); // Cột A - Ngày
+            let title = cells[1]?.v || "Không có tiêu đề"; // Cột B - Tiêu đề
+            let link = cells[2]?.v || "#"; // Cột C - Link phát sóng
 
-    // Nếu Google Sheets trả về số seri
-    if (typeof value === "number") {
-        let date = new Date((value - 25569) * 86400 * 1000);
+            let listItem = document.createElement("li");
+            listItem.innerHTML = `<strong>${date}:</strong> <a href="${link}" target="_blank">${title}</a>`;
+            scheduleList.appendChild(listItem);
+        });
+
+    } catch (error) {
+        console.error("Lỗi khi tải dữ liệu:", error);
+        document.getElementById("schedule-list").innerHTML = "<li>Lỗi tải lịch phát sóng!</li>";
+    }
+}
+
+// Hàm định dạng ngày từ Google Sheets
+function formatDate(cell) {
+    if (!cell) return "N/A"; // Không có dữ liệu
+
+    // Nếu API có định dạng hiển thị ("f"), lấy luôn giá trị đó
+    if (cell.f) return cell.f;
+
+    // Nếu API trả về dạng "Date(YYYY,M,D)"
+    let match = cell.v?.match(/Date\((\d+),(\d+),(\d+)\)/);
+    if (match) {
+        let year = parseInt(match[1]);
+        let month = parseInt(match[2]); // Tháng từ 0-11
+        let day = parseInt(match[3]);
+        let date = new Date(year, month, day);
         return date.toLocaleDateString("vi-VN");
     }
 
-    // Nếu Google Sheets trả về chuỗi ngày dạng "dd/mm/yyyy"
-    if (typeof value === "string" && value.match(/^\d{2}\/\d{2}\/\d{4}$/)) {
-        let parts = value.split("/");
-        let date = new Date(parts[2], parts[1] - 1, parts[0]); // yyyy, mm (0-11), dd
-        return isNaN(date) ? "N/A" : date.toLocaleDateString("vi-VN");
-    }
-
-    // Nếu Google Sheets trả về chuỗi ngày dạng "yyyy-mm-dd"
-    if (typeof value === "string" && value.match(/^\d{4}-\d{2}-\d{2}$/)) {
-        return new Date(value).toLocaleDateString("vi-VN");
-    }
-
-    return "N/A";
+    return "N/A"; // Trả về "N/A" nếu không xác định được ngày
 }
 
-
-        rows.forEach(row => {
-            let date = formatDate(row.c[0]?.v);
-            let time = row.c[1]?.v || "N/A";
-            let content = row.c[2]?.v || "N/A";
-
-            let tr = document.createElement("tr");
-            tr.innerHTML = `<td>${date}</td><td>${time}</td><td>${content}</td>`;
-            tableBody.appendChild(tr);
-        });
-    } catch (error) {
-        console.error("Lỗi khi lấy dữ liệu từ Google Sheets:", error);
-    }
-}
-
-// Gọi hàm để tải lịch phát sóng khi trang được mở
-fetchSchedule();
+// Gọi hàm khi tải trang
+document.addEventListener("DOMContentLoaded", loadSchedule);
 
