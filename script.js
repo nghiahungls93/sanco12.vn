@@ -26,24 +26,7 @@ async function checkYouTubeLive() {
     }
 }
 
-async function checkFacebookLive() {
-    try {
-        let response = await fetch(facebookAPI);
-        let data = await response.json();
 
-        if (data.data.length > 0) {
-            const liveVideoId = data.data[0].id;
-            document.getElementById("stream-frame").src = `https://www.facebook.com/plugins/video.php?href=https://www.facebook.com/${FACEBOOK_PAGE_ID}/videos/${liveVideoId}`;
-            document.getElementById("live-stream").style.display = "block";
-            document.getElementById("status-message").style.display = "none";
-        } else {
-            document.getElementById("status-message").innerText = "❌ Hiện tại không có livestream nào!";
-        }
-    } catch (error) {
-        console.error("Lỗi khi lấy dữ liệu từ Facebook API:", error);
-        document.getElementById("status-message").innerText = "⚠ Không thể kiểm tra livestream!";
-    }
-}
 
 // Chạy kiểm tra livestream khi tải trang
 checkYouTubeLive();
