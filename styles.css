@@ -123,3 +123,13 @@ footer {
     border-radius: 50%;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
 }
+
+.about-section {
+    width: 100%;
+    text-align: center;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.2); /* Màu nền nhẹ */
+    color: #fff;
+    font-size: 18px;
+    font-style: italic; /* Chữ in nghiêng */
+}
